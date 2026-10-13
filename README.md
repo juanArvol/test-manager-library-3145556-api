@@ -92,7 +92,8 @@ CORS_ORIGIN=http://localhost:5173
 - [x] **T-02**: Migración inicial (6 tablas + semilla) ✓
 - [x] **T-03**: Objetos de valor (Isbn, Quantity, DateRange) ✓
 - [x] **T-04**: Dominio: Book (Withdraw, Restock, baja lógica) ✓
-- [ ] **T-05**: Dominio: Loan (AddItem, ReturnItem, estado calculado)
+- [x] **T-05**: Dominio: Loan (AddItem, ReturnItem, estado calculado) ✓
+- [ ] **T-06**: Dominio: Member y User (normalización, rol válido)
 - [ ] **T-03**: Objetos de valor (Isbn, Quantity, DateRange)
 - [ ] **T-04**: Dominio: Book
 - [ ] **T-05**: Dominio: Loan

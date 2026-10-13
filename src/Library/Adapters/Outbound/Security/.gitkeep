@@ -1,0 +1,2 @@
+# Security Adapter (Outbound)
+# Hash de passwords (Argon2id) y generación de JWT

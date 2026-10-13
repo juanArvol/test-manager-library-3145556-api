@@ -1,0 +1,3 @@
+# Outbound Ports
+# Interfaces que el núcleo define para el mundo exterior
+# (Repositorios, Clock, PasswordHasher, TokenIssuer, CoverStorage)

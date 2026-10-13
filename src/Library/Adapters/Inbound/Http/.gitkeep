@@ -1,0 +1,3 @@
+# HTTP Adapter (Inbound)
+# Controladores, DTOs de request/response, manejo de errores
+# Traduce HTTP a llamadas de aplicación

@@ -1,50 +1,144 @@
-# test-manager-library-3145556-api
+# Manager Library API
 
-> **Prueba técnica · Ficha ADSO 3145556**
-> Entrega: **martes 13 de octubre de 2026, a las 5:00 p. m.** (17:00, hora Colombia).
+> **Prueba técnica · Ficha ADSO 3145556**  
+> Backend en PHP (Laravel) siguiendo arquitectura hexagonal según spec-python/spec-.net traducido a PHP
 
-Este repositorio es el **backend** de *Manager Library*, en **PHP con Laravel**. **Empieza vacío a propósito**: se construye en el fork de cada aprendiz.
+## Arquitectura
 
-## Instrucciones
+Este proyecto sigue **arquitectura hexagonal** (puertos y adaptadores) según `constitution.md`:
 
-Cada aprendiz debe **crear el fork** de los seis repositorios del proyecto y **resolver el proyecto
-con el spec planteado**.
+```
+src/Library/
+├── Domain/              # Agregados y objetos de valor (no depende de nada - Artículo I)
+├── Application/
+│   ├── Ports/Outbound/  # Interfaces definidas por el núcleo
+│   └── Services/        # Casos de uso
+├── Adapters/
+│   ├── Inbound/Http/    # Controladores y DTOs
+│   └── Outbound/        # Persistencia, Storage, Security
+└── Bootstrap/Composition/  # Único punto de composición (Artículo III)
+```
 
-1. Hacer fork, a su cuenta de GitHub, de cada repositorio de la tabla del final.
-2. Leer el spec en [`test-manager-library-3145556-docs`](https://github.com/code-sena/test-manager-library-3145556-docs).
-   Se entrega en dos versiones: `spec-python/` y `spec-.net/`.
-3. Desarrollar en los forks.
+## Stack Técnico
 
-## El reto se desarrolla con React y PHP (Laravel)
+- **PHP** 8.2+
+- **Laravel** 11
+- **PostgreSQL** 16 (esquema `library`)
+- **JWT** para autenticación (HS256, 8 horas)
+- **Docker** para desarrollo y despliegue
 
-El spec está escrito para Python y para .NET, pero el reto **no** se hace en esos lenguajes:
+## Instalación
 
-| Capa | Tecnología del reto |
-|---|---|
-| Frontend | React |
-| Backend | PHP con Laravel |
+### Requisitos previos
+- Docker y Docker Compose
+- Composer (si se desarrolla localmente)
 
-Lo que el spec define sobre el negocio —historias, criterios de aceptación, reglas, contrato de la
-API, modelo de datos— se respeta. Lo que define sobre la tecnología se traduce a React y Laravel.
+### Inicio rápido con Docker
 
-## La prueba no consiste en escribir el código
+```bash
+# 1. Clonar el repositorio
+git clone <repo-url>
+cd test-manager-library-3145556-api
 
-El propósito principal es ver la **capacidad de desempeño con SDD** (*Spec-Driven Development*,
-desarrollo guiado por especificación): cómo se lee, se interpreta y se aplica una especificación
-para llevarla a un stack distinto. El código es el medio, no el fin.
+# 2. Copiar variables de entorno
+cp .env.example .env
 
-## Entrega
+# 3. Instalar dependencias
+composer install
 
-Cuenta lo que quede **subido a los forks antes de las 5:00 p. m.** (17:00). Lo que llegue después no se revisa.
-No hay prórroga: suban avances parciales con commits pequeños durante la prueba.
+# 4. Generar key de aplicación
+php artisan key:generate
 
-## Los seis repositorios
+# 5. Ejecutar migraciones (tras levantar infra)
+php artisan migrate
 
-| Repositorio | Qué va ahí |
-|---|---|
-| [`test-manager-library-3145556-docs`](https://github.com/code-sena/test-manager-library-3145556-docs) | El spec: `spec-python/` y `spec-.net/` |
-| [`test-manager-library-3145556-api`](https://github.com/code-sena/test-manager-library-3145556-api) | Backend en PHP (Laravel) |
-| [`test-manager-library-3145556-app`](https://github.com/code-sena/test-manager-library-3145556-app) | Frontend en React |
-| [`test-manager-library-3145556-page`](https://github.com/code-sena/test-manager-library-3145556-page) | Sitio público estático de presentación |
-| [`test-manager-library-3145556-infra`](https://github.com/code-sena/test-manager-library-3145556-infra) | Contenedores, red, volúmenes y motor de base de datos vacío |
-| [`test-manager-library-3145556-tool`](https://github.com/code-sena/test-manager-library-3145556-tool) | Utilidades: sembrador de datos de demostración |
+# 6. Arrancar servidor de desarrollo
+php artisan serve --host=0.0.0.0 --port=8000
+```
+
+## Endpoints
+
+Base: `/api/v1`
+
+### Públicos
+- `GET /health` → `{"status":"ok"}` (T-01 ✓)
+
+### Autenticación
+- `POST /api/v1/auth/login` → devuelve JWT
+
+### Protegidos (requieren Bearer token)
+Ver `api-contract.md` del spec para el contrato completo.
+
+## Variables de Entorno
+
+```env
+DB_CONNECTION=pgsql
+DB_HOST=db
+DB_PORT=5432
+DB_DATABASE=library
+DB_USERNAME=library
+DB_PASSWORD=library
+
+JWT_SECRET=<generar-secreto-largo>
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=<contraseña-segura>
+COVERS_DIR=./storage/app/covers
+CORS_ORIGIN=http://localhost:5173
+```
+
+## Progreso de Tareas
+
+- [x] **T-01**: Esqueleto del proyecto y GET /health ✓
+- [ ] **T-02**: Migración inicial (6 tablas + semilla)
+- [ ] **T-03**: Objetos de valor (Isbn, Quantity, DateRange)
+- [ ] **T-04**: Dominio: Book
+- [ ] **T-05**: Dominio: Loan
+- [ ] **T-06**: Dominio: Member y User
+- [ ] **T-07**: Autenticación (LoginService, CreateLibrarianService)
+- [ ] **T-08**: Casos de uso de libros
+- [ ] **T-09**: Caso de uso: prestar
+- [ ] **T-10**: Caso de uso: devolver y vencidos
+- [ ] **T-11**: Caso de uso: reporte
+- [ ] **T-12**: Repositorios (persistencia)
+- [ ] **T-13**: Concurrencia optimista
+- [ ] **T-14**: Security adapter (hash + JWT)
+- [ ] **T-15**: Storage adapter (portadas)
+- [ ] **T-16**: HTTP adapter completo
+- [ ] **T-17**: Composición y arranque
+- [ ] **T-18**: Restricciones en base de datos
+- [ ] **T-19**: Pruebas de arquitectura
+
+## Principios (constitution.md)
+
+1. **El dominio no depende de nada** (solo stdlib de PHP)
+2. **El núcleo declara sus puertos**
+3. **Un único punto de composición**
+4. **SOLID no es decorativo**
+5. **El esquema es propiedad de las migraciones**
+6. **Las invariantes que la base puede imponer, la base las impone**
+7. **Lo derivado se calcula, no se almacena**
+8. **Los valores congelados no siguen al catálogo**
+9. **Ningún secreto entra al repositorio ni a un log**
+
+## Verificación
+
+```bash
+# Ejecutar pruebas unitarias
+php artisan test --testsuite=Unit
+
+# Ejecutar pruebas de integración
+php artisan test --testsuite=Feature
+
+# Ejecutar pruebas de arquitectura
+php artisan test --testsuite=Architecture
+
+# Health check
+curl http://localhost:8000/api/health
+```
+
+## Referencias
+
+- Spec completo: [`test-manager-library-3145556-docs`](https://github.com/code-sena/test-manager-library-3145556-docs)
+- Contrato API: `spec-python/api-contract.md`
+- Modelo de datos: `spec-python/data-model.md`
+- ADR: `spec-python/adr/`

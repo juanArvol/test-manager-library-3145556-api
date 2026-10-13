@@ -89,7 +89,8 @@ CORS_ORIGIN=http://localhost:5173
 ## Progreso de Tareas
 
 - [x] **T-01**: Esqueleto del proyecto y GET /health ✓
-- [ ] **T-02**: Migración inicial (6 tablas + semilla)
+- [x] **T-02**: Migración inicial (6 tablas + semilla) ✓
+- [ ] **T-03**: Objetos de valor (Isbn, Quantity, DateRange)
 - [ ] **T-03**: Objetos de valor (Isbn, Quantity, DateRange)
 - [ ] **T-04**: Dominio: Book
 - [ ] **T-05**: Dominio: Loan

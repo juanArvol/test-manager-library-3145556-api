@@ -97,7 +97,8 @@ CORS_ORIGIN=http://localhost:5173
 - [x] **T-07**: Puertos y casos de uso de autenticación (con fakes) ✓
 - [x] **T-08**: Puertos y casos de uso de libros (con fakes) ✓
 - [x] **T-09**: Caso de uso: prestar (LendBooksService) con fakes ✓
-- [ ] **T-10**: Caso de uso: devolver y vencidos
+- [x] **T-10**: Caso de uso: devolver y vencidos ✓
+- [ ] **T-11**: Caso de uso: reporte de más prestados
 - [ ] **T-03**: Objetos de valor (Isbn, Quantity, DateRange)
 - [ ] **T-04**: Dominio: Book
 - [ ] **T-05**: Dominio: Loan

@@ -33,4 +33,12 @@ interface LoanRepository
      * Verifica si un socio tiene alguna línea vencida sin devolver
      */
     public function memberHasOverdueItems(string $memberId): bool;
+
+    /**
+     * Obtiene todas las líneas vencidas sin devolver del sistema
+     * 
+     * @param \DateTimeImmutable $now Instante actual
+     * @return array Array de ['loanId', 'itemId', 'bookTitle', 'memberName', 'dueAt', 'daysLate']
+     */
+    public function findOverdueItems(\DateTimeImmutable $now): array;
 }

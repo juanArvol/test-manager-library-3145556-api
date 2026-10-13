@@ -65,4 +65,35 @@ final class FakeLoanRepository implements LoanRepository
     {
         return count($this->loans);
     }
+
+    public function findOverdueItems(\DateTimeImmutable $now): array
+    {
+        $overdueItems = [];
+        
+        foreach ($this->loans as $loan) {
+            foreach ($loan->items() as $item) {
+                if ($item->isOverdue($now)) {
+                    $overdueItems[] = [
+                        'loanId' => $loan->id(),
+                        'itemId' => $item->id(),
+                        'bookTitle' => $item->bookTitle(),
+                        'memberName' => 'Member Name', // En fake simplificado
+                        'dueAt' => $item->dueAt(),
+                        'daysLate' => $item->daysLate($now)
+                    ];
+                }
+            }
+        }
+        
+        return $overdueItems;
+    }
+
+    // Método de ayuda para tests con nombre de socio
+    
+    private array $memberNames = [];
+
+    public function setMemberName(string $memberId, string $name): void
+    {
+        $this->memberNames[$memberId] = $name;
+    }
 }

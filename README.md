@@ -95,7 +95,8 @@ CORS_ORIGIN=http://localhost:5173
 - [x] **T-05**: Dominio: Loan (AddItem, ReturnItem, estado calculado) ✓
 - [x] **T-06**: Dominio: Member y User (normalización, rol válido) ✓
 - [x] **T-07**: Puertos y casos de uso de autenticación (con fakes) ✓
-- [ ] **T-08**: Puertos y casos de uso de libros (crear, buscar, editar, baja, portada)
+- [x] **T-08**: Puertos y casos de uso de libros (con fakes) ✓
+- [ ] **T-09**: Caso de uso: prestar (LendBooksService) con fakes
 - [ ] **T-03**: Objetos de valor (Isbn, Quantity, DateRange)
 - [ ] **T-04**: Dominio: Book
 - [ ] **T-05**: Dominio: Loan

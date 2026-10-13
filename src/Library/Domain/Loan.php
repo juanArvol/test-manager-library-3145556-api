@@ -28,6 +28,7 @@ final class Loan
     private string $memberId;
     private string $loanedByUserId;
     private DateTimeImmutable $loanedAt;
+    private int $version;
     
     /** @var LoanItem[] */
     private array $items;
@@ -37,12 +38,14 @@ final class Loan
         string $memberId,
         string $loanedByUserId,
         DateTimeImmutable $loanedAt,
+        int $version = 0,
         array $items = []
     ) {
         $this->id = $id;
         $this->memberId = $memberId;
         $this->loanedByUserId = $loanedByUserId;
         $this->loanedAt = $loanedAt;
+        $this->version = $version;
         $this->items = $items;
     }
 
@@ -55,7 +58,7 @@ final class Loan
         string $loanedByUserId,
         DateTimeImmutable $loanedAt
     ): self {
-        return new self($id, $memberId, $loanedByUserId, $loanedAt, []);
+        return new self($id, $memberId, $loanedByUserId, $loanedAt, 0, []);
     }
 
     /**
@@ -66,9 +69,10 @@ final class Loan
         string $memberId,
         string $loanedByUserId,
         DateTimeImmutable $loanedAt,
+        int $version,
         array $items
     ): self {
-        return new self($id, $memberId, $loanedByUserId, $loanedAt, $items);
+        return new self($id, $memberId, $loanedByUserId, $loanedAt, $version, $items);
     }
 
     /**
@@ -256,6 +260,11 @@ final class Loan
     public function itemCount(): int
     {
         return count($this->items);
+    }
+
+    public function version(): int
+    {
+        return $this->version;
     }
 
     // Private helpers

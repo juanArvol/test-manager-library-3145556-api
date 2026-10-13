@@ -93,7 +93,8 @@ CORS_ORIGIN=http://localhost:5173
 - [x] **T-03**: Objetos de valor (Isbn, Quantity, DateRange) ✓
 - [x] **T-04**: Dominio: Book (Withdraw, Restock, baja lógica) ✓
 - [x] **T-05**: Dominio: Loan (AddItem, ReturnItem, estado calculado) ✓
-- [ ] **T-06**: Dominio: Member y User (normalización, rol válido)
+- [x] **T-06**: Dominio: Member y User (normalización, rol válido) ✓
+- [ ] **T-07**: Puertos y casos de uso de autenticación (LoginService, CreateLibrarianService)
 - [ ] **T-03**: Objetos de valor (Isbn, Quantity, DateRange)
 - [ ] **T-04**: Dominio: Book
 - [ ] **T-05**: Dominio: Loan
